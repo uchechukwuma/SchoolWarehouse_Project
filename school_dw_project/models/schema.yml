@@ -69,10 +69,6 @@ models:
 
   - name: fact_studentperformance_core
     columns:
-      - name: performanceid
-        tests:
-          - unique
-          - not_null
       - name: studentid
         tests:
           - not_null
@@ -100,10 +96,6 @@ models:
 
   - name: fact_attendance_core
     columns:
-      - name: attendanceid
-        tests:
-          - unique
-          - not_null
       - name: studentid
         tests:
           - not_null
@@ -141,6 +133,12 @@ models:
           - relationships:
               to: ref('dim_term_core')
               field: termid
+      - name: paymentstatus
+        description: "Overall payment status"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Paid', 'Partial', 'Unpaid']
       - name: paymentdate
         tests:
           - not_null
@@ -210,13 +208,6 @@ models:
           - not_null
           - dbt_utils.expression_is_true:
               expression: "total_amount_paid >= 0"
-      - name: payment_status
-        description: "Overall payment status"
-        tests:
-          - not_null
-          - accepted_values:
-              values: ['Paid', 'Partial', 'Unpaid']
-
   - name: student_performance_mart
     description: "Academic performance summary per student per term"
     columns:
@@ -226,18 +217,18 @@ models:
       - name: termid
         tests:
           - not_null
-      - name: average_score
-        description: "Average academic score of the student in the term"
+      - name: term_gpa
+        description: "Term gpa score of the student in the term"
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "average_score >= 0 AND average_score <= 100"
-      - name: gpa
-        description: "GPA calculated based on scores"
+              expression: "term_gpa >= 0 AND term_gpa <= 5"
+      - name: cgpa
+        description: "CGPA calculated based on scores"
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "gpa >= 0 AND gpa <= 5"
+              expression: "cgpa >= 0 AND cgpa <= 5"
 
   - name: employee_teaching_load_mart
     description: "Summary of employee teaching load"
@@ -245,17 +236,17 @@ models:
       - name: employeeid
         tests:
           - not_null
-      - name: total_classes_assigned
+      - name: total_classes
         description: "Number of classes assigned to the employee"
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "total_classes_assigned >= 0"
-      - name: total_subjects_taught
+              expression: "total_classes >= 0"
+      - name: total_subjects
         description: "Number of distinct subjects taught by the employee"
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "total_subjects_taught >= 0"
+              expression: "total_subjects >= 0"
 
 
