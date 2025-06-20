@@ -4,6 +4,7 @@ with performance as (
         fsp.studentid,
         ds.firstname,
         ds.lastname,
+        dc.classid,
         fsp.termid,
         dt.termname,
         dt.academicyear,
@@ -12,6 +13,7 @@ with performance as (
         dgs.gradepoint
     from {{ ref('fact_studentperformance_core') }} fsp
     join {{ ref('dim_student_core') }} ds using (studentid)
+    join {{ ref('dim_class_core') }} dc using (classid)
     join {{ ref('dim_term_core') }} dt using (termid)
     join {{ ref('dim_gradingscale_core') }} dgs using (gradeid)
 
@@ -44,6 +46,7 @@ select
     p.studentid,
     p.firstname,
     p.lastname,
+    p.classid,
     p.termid,
     p.termname,
     p.academicyear,
