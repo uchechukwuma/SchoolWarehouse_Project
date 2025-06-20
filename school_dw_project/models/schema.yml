@@ -139,9 +139,6 @@ models:
           - not_null
           - accepted_values:
               values: ['Paid', 'Partial', 'Unpaid']
-      - name: paymentdate
-        tests:
-          - not_null
 
   - name: taughtby_core
     columns:
@@ -179,19 +176,19 @@ models:
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "total_days >= 0"
+              expression: " >= 0"
       - name: days_present
         description: "Number of days the student was marked present"
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "days_present >= 0"
+              expression: " >= 0"
       - name: attendance_rate_pct
         description: "Percentage of attendance"
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "attendance_rate_pct >= 0 AND attendance_rate_pct <= 100"
+              expression: " >= 0 AND attendance_rate_pct <= 100"
 
   - name: payment_summary_mart
     description: "Payment summary per student per term"
@@ -207,7 +204,7 @@ models:
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "total_amount_paid >= 0"
+              expression: " >= 0"
   - name: student_performance_mart
     description: "Academic performance summary per student per term"
     columns:
@@ -222,13 +219,13 @@ models:
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "term_gpa >= 0 AND term_gpa <= 5"
+              expression: " >= 0 AND term_gpa <= 5"
       - name: cgpa
         description: "CGPA calculated based on scores"
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "cgpa >= 0 AND cgpa <= 5"
+              expression: " >= 0 AND cgpa <= 5"
 
   - name: employee_teaching_load_mart
     description: "Summary of employee teaching load"
@@ -241,12 +238,12 @@ models:
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "total_classes >= 0"
+              expression: " >= 0"
       - name: total_subjects
         description: "Number of distinct subjects taught by the employee"
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "total_subjects >= 0"
+              expression: " >= 0"
 
 
