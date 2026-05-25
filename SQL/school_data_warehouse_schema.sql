@@ -101,7 +101,7 @@ CREATE TABLE FactPayment (
     StudentID INT NOT NULL,
     TermID INT NOT NULL,
     AmountPaid DECIMAL(10,2) NOT NULL,
-    PaymentStatus VARCHAR(20) NOT NULL CHECK (PaymentStatus IN ('Paid', 'Unpaid', 'Partial')),
+    PaymentStatus VARCHAR(20) CHECK (PaymentStatus IN ('Paid', 'Unpaid', 'Partial')),
     PaymentDate DATE NOT NULL,
     FOREIGN KEY (StudentID) REFERENCES DimStudent(StudentID),
     FOREIGN KEY (TermID) REFERENCES DimTerm(TermID)
