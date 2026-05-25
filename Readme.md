@@ -11,7 +11,7 @@ The data warehouse enforces a rigorous three-tier modern data stack topology: **
 ```mermaid
 graph LR
     %% Data Layer (Sources)
-    subgraph Raw OLTP Sources
+    subgraph "Raw OLTP Sources"
         S1[public.factstudentperformance]
         S2[public.factattendance]
         S3[public.factpayment]
@@ -19,7 +19,7 @@ graph LR
     end
 
     %% Staging Layer
-    subgraph Staging Layer (L1)
+    subgraph "Staging Layer L1"
         ST1[stg_factstudentperformance]
         ST2[stg_factattendance]
         ST3[stg_factpayment]
@@ -27,7 +27,7 @@ graph LR
     end
 
     %% Core / Dimensional Layer
-    subgraph Core Dimensional Layer (L2)
+    subgraph "Core Dimensional Layer L2"
         F1[fact_studentperformance_core]
         F2[fact_attendance_core]
         F3[fact_payment_core]
@@ -38,7 +38,7 @@ graph LR
     end
 
     %% Analytics Marts Layer
-    subgraph Data Marts Layer (L3)
+    subgraph "Data Marts Layer L3"
         M1[student_performance_mart]
         M2[attendance_summary_mart]
         M3[payment_summary_mart]
